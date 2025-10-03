@@ -1,3 +1,24 @@
+// Smooth scrolling functions
+function scrollToContact() {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+        contactSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+function scrollToPaymentPlan() {
+    const paymentSection = document.getElementById('payment-plan');
+    if (paymentSection) {
+        paymentSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
     // Add smooth scrolling to all anchor links
@@ -61,8 +82,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // EOI Form handling
     const eoiForm = document.getElementById('eoiForm');
     if (eoiForm) {
+        console.log('EOI Form found and event listener added');
         eoiForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('Form submitted');
             
             // Get form data
             const formData = new FormData(this);
@@ -71,8 +94,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 formObject[key] = value;
             });
             
+            console.log('Form data:', formObject);
+            
             // Validate form
             if (!formObject.fullName || !formObject.email || !formObject.phone || !formObject.tower || !formObject.terms) {
+                console.log('Validation failed - missing fields');
                 showNotification('Please fill in all required fields and accept terms and conditions.', 'error');
                 return;
             }
