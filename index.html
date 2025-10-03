@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jacob & Co. | Ultra-Luxury Living on Noida Expressway | By Kunwar Singh Rawat</title>
+    <meta name="description" content="Experience unmatched luxury with Jacob & Co.'s first-ever residential masterpiece on Noida Expressway. 4 iconic skyscrapers designed by Jacob Arabo. Starting ₹7.50 Cr.">
+    <meta name="keywords" content="luxury real estate, Jacob & Co, Noida Expressway, luxury apartments, premium living, Jacob Arabo, skyscrapers">
+    <meta name="author" content="Kunwar Singh Rawat">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">
+                        <div class="logo-icon">J&Co</div>
+                    </div>
+                    <div class="company-info">
+                        <h1>Jacob & Co. | Luxury Real Estate</h1>
+                        <p class="availability">Launching Soon on Noida Expressway!</p>
+                        <p class="developer">By Kunwar Singh Rawat</p>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>kunwarsinghrawat@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 9760393545</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-secondary">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="far fa-bookmark"></i>
+                    </button>
+                    <button class="btn-primary">Get in Touch</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-title">Ultra-Luxury Living & Investment</h2>
+                <p class="hero-subtitle">4 Iconic Skyscrapers | G+40 Towers | Designed by Jacob Arabo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Property Showcase -->
+    <section class="property-showcase">
+        <div class="container">
+            <div class="property-card">
+                <div class="property-image">
+                    <div class="image-gallery">
+                        <div class="main-image">
+                            <img src="assets/images/optimized/property_image_01.png" alt="Jacob & Co. Luxury Skyscraper" id="mainImage">
+                            <div class="image-overlay">
+                                <div class="property-badge">Coming Soon</div>
+                                <div class="image-nav">
+                                    <button class="nav-btn prev-btn" onclick="changeImage(-1)">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <button class="nav-btn next-btn" onclick="changeImage(1)">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="image-thumbnails">
+                            <div class="thumbnail active" onclick="setMainImage(0)">
+                                <img src="assets/images/optimized/property_image_01.png" alt="Property View 1">
+                            </div>
+                            <div class="thumbnail" onclick="setMainImage(1)">
+                                <img src="assets/images/optimized/property_image_06.png" alt="Property View 2">
+                            </div>
+                            <div class="thumbnail" onclick="setMainImage(2)">
+                                <img src="assets/images/optimized/property_image_07.png" alt="Property View 3">
+                            </div>
+                            <div class="thumbnail" onclick="setMainImage(3)">
+                                <img src="assets/images/optimized/property_image_08.png" alt="Property View 4">
+                            </div>
+                            <div class="thumbnail" onclick="setMainImage(4)">
+                                <img src="assets/images/optimized/property_image_09.png" alt="Property View 5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="property-details">
+                    <div class="location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Sector 97, Noida Expressway</span>
+                    </div>
+                    
+                    <div class="property-specs">
+                        <div class="spec-item">
+                            <span class="spec-number">3-5</span>
+                            <span class="spec-label">BHK</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-number">2500-6400</span>
+                            <span class="spec-label">sq.ft</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-number">4</span>
+                            <span class="spec-label">Towers</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing">
+                        <div class="price-main">Starting ₹7.50 Cr</div>
+                        <div class="price-details">
+                            <span>EOI Amount: ₹50 Lacs</span>
+                            <button class="btn-split">Payment Plan ></button>
+                        </div>
+                    </div>
+                    
+                    <div class="agent-info">
+                        <div class="agent-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="agent-details">
+                            <span class="agent-label">Sales Team</span>
+                            <span class="agent-name">Jacob & Co. India</span>
+                            <button class="btn-contact">Contact</button>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-tour">Generate EOI Now</button>
+                    <p class="tour-note">Limited inventory – Claim your icon before it's gone!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floor Plans Section -->
+    <section class="floor-plans">
+        <div class="container">
+            <h3 class="section-title">Floor Plans</h3>
+            <p class="section-subtitle">Explore our meticulously designed living spaces</p>
+            <div class="floor-plans-grid">
+                <div class="floor-plan-card">
+                    <div class="floor-plan-image" onclick="openFloorPlanModal('3bhk')">
+                        <img src="assets/images/optimized/property_image_17.png" alt="3 BHK Floor Plan">
+                        <div class="floor-plan-overlay">
+                            <h4>3 BHK</h4>
+                            <p>2500 sq.ft</p>
+                            <button class="btn-view-plan">View Floor Plan</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="floor-plan-card">
+                    <div class="floor-plan-image" onclick="openFloorPlanModal('4bhk')">
+                        <img src="assets/images/optimized/property_image_18.png" alt="4 BHK Floor Plan">
+                        <div class="floor-plan-overlay">
+                            <h4>4 BHK</h4>
+                            <p>4400 sq.ft</p>
+                            <button class="btn-view-plan">View Floor Plan</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="floor-plan-card">
+                    <div class="floor-plan-image" onclick="openFloorPlanModal('5bhk')">
+                        <img src="assets/images/optimized/property_image_19.png" alt="5 BHK Floor Plan">
+                        <div class="floor-plan-overlay">
+                            <h4>5 BHK</h4>
+                            <p>6400 sq.ft</p>
+                            <button class="btn-view-plan">View Floor Plan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floor Plan Modal -->
+    <div class="floor-plan-modal" id="floorPlanModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Floor Plan</h3>
+                <button class="close-btn" onclick="closeFloorPlanModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="zoomIn()">+</button>
+                    <button class="zoom-btn" onclick="zoomOut()">-</button>
+                    <button class="zoom-btn" onclick="resetZoom()">Reset</button>
+                </div>
+                <div class="floor-plan-container">
+                    <img id="modalFloorPlan" src="" alt="Floor Plan">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Property Gallery -->
+    <section class="property-gallery">
+        <div class="container">
+            <h3 class="section-title">Luxury Living Spaces</h3>
+            <p class="section-subtitle">Experience the unmatched elegance of Jacob & Co. design</p>
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src="assets/images/optimized/property_image_11.png" alt="Luxury Living Room">
+                    <div class="gallery-overlay">
+                        <h4>Premium Living Spaces</h4>
+                        <p>Designed by Jacob Arabo</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/optimized/property_image_12.png" alt="Modern Architecture">
+                    <div class="gallery-overlay">
+                        <h4>Iconic Architecture</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/optimized/property_image_13.png" alt="Luxury Amenities">
+                    <div class="gallery-overlay">
+                        <h4>Exclusive Amenities</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/optimized/property_image_14.png" alt="City Views">
+                    <div class="gallery-overlay">
+                        <h4>Panoramic Views</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/optimized/property_image_15.png" alt="Interior Design">
+                    <div class="gallery-overlay">
+                        <h4>Interior Excellence</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/optimized/property_image_16.png" alt="Luxury Features">
+                    <div class="gallery-overlay">
+                        <h4>Premium Features</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Highlights -->
+    <section class="project-highlights">
+        <div class="container">
+            <h3 class="section-title">Project Highlights</h3>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-image">
+                        <img src="assets/images/optimized/property_image_02.png" alt="Iconic Skyscrapers">
+                    </div>
+                    <h4>4 Iconic Skyscrapers</h4>
+                    <p>G+40 Towers designed by legendary Jacob Arabo</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-image">
+                        <img src="assets/images/optimized/property_image_03.png" alt="Premium Location">
+                    </div>
+                    <h4>Premium Location</h4>
+                    <p>Bang on Noida Expressway, Sector 97</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-image">
+                        <img src="assets/images/optimized/property_image_04.png" alt="Exclusive Clubhouse">
+                    </div>
+                    <h4>Exclusive Clubhouse</h4>
+                    <p>World-renowned design by Jacob & Co.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-image">
+                        <img src="assets/images/optimized/property_image_05.png" alt="Limited Units">
+                    </div>
+                    <h4>Limited Units</h4>
+                    <p>Only 270 ultra-luxury units across 4 towers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tower Specifications -->
+    <section class="tower-specs">
+        <div class="container">
+            <h3 class="section-title">Tower Specifications</h3>
+            <div class="specs-table">
+                <div class="spec-row header">
+                    <div class="spec-cell">Tower</div>
+                    <div class="spec-cell">Size</div>
+                    <div class="spec-cell">Units per Floor</div>
+                    <div class="spec-cell">Total Floors</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-cell">T1</div>
+                    <div class="spec-cell">2500 sq.ft</div>
+                    <div class="spec-cell">2 units</div>
+                    <div class="spec-cell">40 floors</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-cell">T2/T3</div>
+                    <div class="spec-cell">4400 sq.ft</div>
+                    <div class="spec-cell">2 units</div>
+                    <div class="spec-cell">40 floors</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-cell">T4</div>
+                    <div class="spec-cell">6400 sq.ft</div>
+                    <div class="spec-cell">1 unit</div>
+                    <div class="spec-cell">40 floors</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Plan -->
+    <section class="payment-plan">
+        <div class="container">
+            <h3 class="section-title">Payment Plan</h3>
+            <div class="payment-details">
+                <div class="payment-option">
+                    <div class="payment-percentage">30%</div>
+                    <div class="payment-label">Booking Amount</div>
+                </div>
+                <div class="payment-arrow">→</div>
+                <div class="payment-option">
+                    <div class="payment-percentage">40%</div>
+                    <div class="payment-label">During Construction</div>
+                </div>
+                <div class="payment-arrow">→</div>
+                <div class="payment-option">
+                    <div class="payment-percentage">30%</div>
+                    <div class="payment-label">On Possession</div>
+                </div>
+            </div>
+            <div class="pricing-breakdown">
+                <h4>Pricing Breakdown</h4>
+                <ul>
+                    <li>Base Price: ₹32K per sq.ft + PLC + GST + Other Charges</li>
+                    <li>EOI Amount: ₹50 Lacs only</li>
+                    <li>Possession: 4 years</li>
+                    <li>Exit Policy: After one year</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- EOI Form -->
+    <section class="eoi-section">
+        <div class="container">
+            <div class="eoi-content">
+                <h3 class="section-title">Generate Your Expression of Interest</h3>
+                <p class="eoi-subtitle">Be among the first to own this luxury address</p>
+                <form class="eoi-form" id="eoiForm">
+                    <div class="form-group">
+                        <input type="text" name="fullName" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-group">
+                        <select name="tower" required>
+                            <option value="">Select Preferred Tower</option>
+                            <option value="t1">T1 - 2500 sq.ft (3 BHK)</option>
+                            <option value="t2">T2 - 4400 sq.ft (4 BHK)</option>
+                            <option value="t3">T3 - 4400 sq.ft (4 BHK)</option>
+                            <option value="t4">T4 - 6400 sq.ft (5 BHK)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Additional Requirements (Optional)" rows="3"></textarea>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" required>
+                            <span class="checkmark"></span>
+                            I agree to the terms and conditions
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-eoi">Generate EOI Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Jacob & Co.</h4>
+                    <p>Bringing unmatched luxury to India with our first-ever residential masterpiece.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Project Details</h4>
+                    <p>Sector 97, Noida Expressway</p>
+                    <p>Total Land: 6 Acres</p>
+                    <p>Total Units: 270</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>+91 9760393545</p>
+                    <p>kunwarsinghrawat@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Jacob & Co. | Developed by <strong>Kunwar Singh Rawat</strong>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
