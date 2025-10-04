@@ -1356,3 +1356,30 @@ select:focus {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Project Details Styling */
+.project-details {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #d4af37;
+}
+
+.project-details h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.project-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.project-details li {
+    padding: 6px 0;
+    color: #555;
+    font-size: 0.95em;
+}
