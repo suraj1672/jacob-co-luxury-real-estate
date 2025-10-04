@@ -671,9 +671,11 @@ function submitPopupForm() {
 🎯 *Action Required:*
 Please contact this lead immediately!`;
     
-    // Send WhatsApp
-    const whatsappUrl = `https://wa.me/919760393545?text=${encodeURIComponent(whatsappMessage)}`;
-    window.open(whatsappUrl, '_blank');
+    // Log lead data for your reference
+    console.log('=== NEW LEAD CAPTURED ===');
+    console.log('Lead Details:', { name, email, phone, nationality, interest, eoiNumber });
+    console.log('WhatsApp Message:', whatsappMessage);
+    console.log('========================');
     
     // Show success message
     alert('✅ Request Submitted! Your EOI number is ' + eoiNumber + '. We will contact you soon!');

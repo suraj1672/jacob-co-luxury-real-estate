@@ -1757,6 +1757,10 @@ select:focus {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     overflow: hidden;
+    margin-top: 20px;
+    display: block;
+    visibility: visible;
+    opacity: 1;
 }
 
 .popup-submit-btn:hover {
