@@ -598,66 +598,96 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Popup form submission
+// Popup form submission - Complete rewrite
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, setting up popup form...');
+    
+    // Wait a bit for popup to be created
+    setTimeout(function() {
+        const popupForm = document.getElementById('popupForm');
+        const popupSubmitBtn = document.getElementById('popupSubmitBtn');
+        
+        if (popupForm) {
+            console.log('Popup form found, adding event listeners...');
+            
+            // Form submit event
+            popupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Popup form submitted via form event');
+                handlePopupSubmission();
+            });
+            
+            // Button click event (backup)
+            if (popupSubmitBtn) {
+                popupSubmitBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Popup form submitted via button click');
+                    handlePopupSubmission();
+                });
+            }
+        } else {
+            console.log('Popup form not found');
+        }
+    }, 1000);
+});
+
+// Handle popup form submission
+function handlePopupSubmission() {
+    console.log('Handling popup submission...');
+    
     const popupForm = document.getElementById('popupForm');
-    if (popupForm) {
-        console.log('Popup form found and event listener added');
-        popupForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log('Popup form submitted');
-            
-            const submitBtn = this.querySelector('.popup-submit-btn');
-            const btnText = submitBtn.querySelector('.btn-text');
-            const btnLoading = submitBtn.querySelector('.btn-loading');
-            
-            // Get form data
-            const formData = new FormData(this);
-            const leadData = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                nationality: formData.get('nationality'),
-                interest: formData.get('interest'),
-                terms: formData.get('terms'),
-                source: 'Popup Lead Capture',
-                timestamp: new Date().toISOString()
-            };
-            
-            console.log('Popup form data:', leadData);
-            
-            // Validate form
-            if (!leadData.name || !leadData.email || !leadData.phone || !leadData.nationality || !leadData.interest || !leadData.terms) {
-                console.log('Popup validation failed - missing fields');
-                showNotification('Please fill in all required fields and accept terms.', 'error');
-                return;
-            }
-            
-            // Validate email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(leadData.email)) {
-                showNotification('Please enter a valid email address.', 'error');
-                return;
-            }
-            
-            // Validate phone
-            const phoneRegex = /^[6-9]\d{9}$/;
-            if (!phoneRegex.test(leadData.phone.replace(/\D/g, ''))) {
-                showNotification('Please enter a valid 10-digit phone number.', 'error');
-                return;
-            }
-            
-            // Show loading state
-            submitBtn.classList.add('loading');
-            btnText.style.display = 'none';
-            btnLoading.style.display = 'inline';
-            
-            // Generate EOI number
-            const eoiNumber = 'EOI-' + Date.now().toString().slice(-6);
-            
-            // Prepare WhatsApp message
-            const whatsappMessage = `🏠 *New Lead - Jacob & Co. x M3M*
-            
+    const submitBtn = document.getElementById('popupSubmitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoading = submitBtn.querySelector('.btn-loading');
+    
+    // Get form data
+    const formData = new FormData(popupForm);
+    const leadData = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        nationality: formData.get('nationality'),
+        interest: formData.get('interest'),
+        terms: formData.get('terms'),
+        source: 'Popup Lead Capture',
+        timestamp: new Date().toISOString()
+    };
+    
+    console.log('Popup form data:', leadData);
+    
+    // Validate form
+    if (!leadData.name || !leadData.email || !leadData.phone || !leadData.nationality || !leadData.interest || !leadData.terms) {
+        console.log('Popup validation failed - missing fields');
+        showNotification('Please fill in all required fields marked with * and accept terms.', 'error');
+        return;
+    }
+    
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(leadData.email)) {
+        showNotification('Please enter a valid email address.', 'error');
+        return;
+    }
+    
+    // Validate phone
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(leadData.phone.replace(/\D/g, ''))) {
+        showNotification('Please enter a valid 10-digit phone number.', 'error');
+        return;
+    }
+    
+    // Show loading state
+    submitBtn.classList.add('loading');
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'inline';
+    submitBtn.disabled = true;
+    
+    // Generate EOI number
+    const eoiNumber = 'EOI-' + Date.now().toString().slice(-6);
+    
+    // Prepare WhatsApp message
+    const whatsappMessage = `🏠 *New Lead - Jacob & Co. x M3M*
+    
 📋 *Lead Details:*
 • Name: ${leadData.name}
 • Email: ${leadData.email}
@@ -670,17 +700,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 🎯 *Action Required:*
 Please contact this lead immediately for priority booking!`;
-            
-            // Send WhatsApp notification
-            const whatsappUrl = `https://wa.me/919760393545?text=${encodeURIComponent(whatsappMessage)}`;
-            
-            // Open WhatsApp in new tab
-            window.open(whatsappUrl, '_blank');
-            
-            // Send confirmation email to customer
-            const customerEmail = leadData.email;
-            const customerSubject = `Your EOI Confirmation - Jacob & Co. x M3M (${eoiNumber})`;
-            const customerBody = `Dear ${leadData.name},
+    
+    // Send WhatsApp notification
+    const whatsappUrl = `https://wa.me/919760393545?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    // Open WhatsApp in new tab
+    window.open(whatsappUrl, '_blank');
+    
+    // Send confirmation email to customer
+    const customerEmail = leadData.email;
+    const customerSubject = `Your EOI Confirmation - Jacob & Co. x M3M (${eoiNumber})`;
+    const customerBody = `Dear ${leadData.name},
 
 Thank you for your interest in Jacob & Co. x M3M luxury residences!
 
@@ -706,55 +736,33 @@ Best regards,
 Kunwar Singh Rawat
 Jacob & Co. x M3M Team`;
 
-            const customerEmailUrl = `mailto:${customerEmail}?subject=${encodeURIComponent(customerSubject)}&body=${encodeURIComponent(customerBody)}`;
-            
-            // Open customer email
-            window.open(customerEmailUrl, '_blank');
-            
-            // Show success message
-            showNotification('🎉 Thank you! Your EOI number is ' + eoiNumber + '. We will contact you soon!', 'success');
-            
-            // Reset form
-            this.reset();
-            
-            // Reset button state
-            submitBtn.classList.remove('loading');
-            btnText.style.display = 'inline';
-            btnLoading.style.display = 'none';
-            
-            // Close popup after 3 seconds
-            setTimeout(() => {
-                closePopup();
-            }, 3000);
-        });
-    } else {
-        console.log('Popup form not found');
-    }
-});
-
-// Alternative popup form handler (backup)
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('popup-submit-btn') || e.target.closest('.popup-submit-btn')) {
-        e.preventDefault();
-        console.log('Popup submit button clicked directly');
-        
-        const popupForm = document.getElementById('popupForm');
-        if (popupForm) {
-            popupForm.dispatchEvent(new Event('submit'));
-        }
-    }
-});
+    const customerEmailUrl = `mailto:${customerEmail}?subject=${encodeURIComponent(customerSubject)}&body=${encodeURIComponent(customerBody)}`;
+    
+    // Open customer email
+    window.open(customerEmailUrl, '_blank');
+    
+    // Show success message
+    showNotification('✅ Request Accepted! Your EOI number is ' + eoiNumber + '. We will contact you within 24 hours!', 'success');
+    
+    // Reset form
+    popupForm.reset();
+    
+    // Reset button state
+    submitBtn.classList.remove('loading');
+    btnText.style.display = 'inline';
+    btnLoading.style.display = 'none';
+    submitBtn.disabled = false;
+    
+    // Close popup after 3 seconds
+    setTimeout(() => {
+        closePopup();
+    }, 3000);
+}
 
 // Test function to manually trigger popup form (for debugging)
 function testPopupForm() {
     console.log('Testing popup form...');
-    const popupForm = document.getElementById('popupForm');
-    if (popupForm) {
-        console.log('Popup form found, triggering submit...');
-        popupForm.dispatchEvent(new Event('submit'));
-    } else {
-        console.log('Popup form not found');
-    }
+    handlePopupSubmission();
 }
 
 // Make test function available globally for debugging
