@@ -1661,7 +1661,9 @@ select:focus {
     border-radius: 8px;
     font-size: 14px;
     transition: border-color 0.3s ease;
-    background: #f8f9fa;
+    background: white;
+    color: #2c3e50;
+    font-weight: 500;
 }
 
 .popup-form input:focus,
@@ -1669,10 +1671,63 @@ select:focus {
     outline: none;
     border-color: #d4af37;
     background: white;
+    color: #2c3e50;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
 }
 
 .popup-form input::placeholder {
     color: #999;
+    font-weight: 400;
+}
+
+.popup-form select {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.popup-form select option {
+    color: #2c3e50;
+    background: white;
+    padding: 8px;
+}
+
+/* Ensure text visibility in all states */
+.popup-form input[type="text"],
+.popup-form input[type="email"],
+.popup-form input[type="tel"] {
+    color: #2c3e50 !important;
+    background: white !important;
+    font-weight: 500 !important;
+}
+
+.popup-form input[type="text"]:focus,
+.popup-form input[type="email"]:focus,
+.popup-form input[type="tel"]:focus {
+    color: #2c3e50 !important;
+    background: white !important;
+}
+
+.popup-form select:focus {
+    color: #2c3e50 !important;
+    background: white !important;
+}
+
+/* Mobile specific fixes */
+@media (max-width: 768px) {
+    .popup-form input,
+    .popup-form select {
+        color: #2c3e50 !important;
+        background: white !important;
+        font-weight: 500 !important;
+        -webkit-text-fill-color: #2c3e50 !important;
+    }
+    
+    .popup-form input:focus,
+    .popup-form select:focus {
+        color: #2c3e50 !important;
+        background: white !important;
+        -webkit-text-fill-color: #2c3e50 !important;
+    }
 }
 
 .popup-submit-btn {
