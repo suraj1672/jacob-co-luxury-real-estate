@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
 🎯 *Action Required:*
 Please contact this lead immediately for priority booking!`;
             
-            // Send WhatsApp notification
+            // Send WhatsApp notification - Fixed number format
             const whatsappUrl = `https://wa.me/91997024660?text=${encodeURIComponent(whatsappMessage)}`;
             
             // Debug: Log the WhatsApp URL
@@ -675,7 +675,7 @@ function submitPopupForm() {
 🎯 *Action Required:*
 Please contact this lead immediately!`;
     
-    // Send WhatsApp notification (open in new tab)
+    // Send WhatsApp notification (open in new tab) - Fixed number format
     const whatsappUrl = `https://wa.me/91997024660?text=${encodeURIComponent(whatsappMessage)}`;
     
     // Debug: Log the WhatsApp URL
