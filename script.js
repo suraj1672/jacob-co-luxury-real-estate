@@ -638,13 +638,12 @@ function submitPopupForm() {
     const phone = document.getElementById('popupPhone').value;
     const nationality = document.getElementById('popupNationality').value;
     const interest = document.getElementById('popupInterest').value;
-    const terms = document.getElementById('popupTerms').checked;
     
-    console.log('Form data:', { name, email, phone, nationality, interest, terms });
+    console.log('Form data:', { name, email, phone, nationality, interest });
     
     // Simple validation
-    if (!name || !email || !phone || !nationality || !interest || !terms) {
-        alert('Please fill in all required fields and accept terms.');
+    if (!name || !email || !phone || !nationality || !interest) {
+        alert('Please fill in all required fields.');
         return;
     }
     
