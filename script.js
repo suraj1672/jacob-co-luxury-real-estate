@@ -598,171 +598,102 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Popup form submission - Complete rewrite
+// Simple popup form submission
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, setting up popup form...');
+    console.log('Setting up popup form...');
     
-    // Wait a bit for popup to be created
+    // Wait for popup to be ready
     setTimeout(function() {
         const popupForm = document.getElementById('popupForm');
         const popupSubmitBtn = document.getElementById('popupSubmitBtn');
         
-        if (popupForm) {
-            console.log('Popup form found, adding event listeners...');
+        if (popupForm && popupSubmitBtn) {
+            console.log('Popup form and button found');
             
-            // Form submit event
-            popupForm.addEventListener('submit', function(e) {
+            // Simple button click handler
+            popupSubmitBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                console.log('Popup form submitted via form event');
-                handlePopupSubmission();
+                console.log('Submit button clicked');
+                submitPopupForm();
             });
-            
-            // Button click event (backup)
-            if (popupSubmitBtn) {
-                popupSubmitBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Popup form submitted via button click');
-                    handlePopupSubmission();
-                });
-            }
         } else {
-            console.log('Popup form not found');
+            console.log('Popup elements not found');
         }
-    }, 1000);
+    }, 2000);
 });
 
-// Handle popup form submission
-function handlePopupSubmission() {
-    console.log('Handling popup submission...');
+// Simple popup form submission function
+function submitPopupForm() {
+    console.log('Submitting popup form...');
     
+    // Get form elements
     const popupForm = document.getElementById('popupForm');
     const submitBtn = document.getElementById('popupSubmitBtn');
     const btnText = submitBtn.querySelector('.btn-text');
     const btnLoading = submitBtn.querySelector('.btn-loading');
     
     // Get form data
-    const formData = new FormData(popupForm);
-    const leadData = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        nationality: formData.get('nationality'),
-        interest: formData.get('interest'),
-        terms: formData.get('terms'),
-        source: 'Popup Lead Capture',
-        timestamp: new Date().toISOString()
-    };
+    const name = document.getElementById('popupName').value;
+    const email = document.getElementById('popupEmail').value;
+    const phone = document.getElementById('popupPhone').value;
+    const nationality = document.getElementById('popupNationality').value;
+    const interest = document.getElementById('popupInterest').value;
+    const terms = document.getElementById('popupTerms').checked;
     
-    console.log('Popup form data:', leadData);
+    console.log('Form data:', { name, email, phone, nationality, interest, terms });
     
-    // Validate form
-    if (!leadData.name || !leadData.email || !leadData.phone || !leadData.nationality || !leadData.interest || !leadData.terms) {
-        console.log('Popup validation failed - missing fields');
-        showNotification('Please fill in all required fields marked with * and accept terms.', 'error');
+    // Simple validation
+    if (!name || !email || !phone || !nationality || !interest || !terms) {
+        alert('Please fill in all required fields and accept terms.');
         return;
     }
     
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(leadData.email)) {
-        showNotification('Please enter a valid email address.', 'error');
-        return;
-    }
-    
-    // Validate phone
-    const phoneRegex = /^[6-9]\d{9}$/;
-    if (!phoneRegex.test(leadData.phone.replace(/\D/g, ''))) {
-        showNotification('Please enter a valid 10-digit phone number.', 'error');
-        return;
-    }
-    
-    // Show loading state
-    submitBtn.classList.add('loading');
+    // Show loading
+    submitBtn.disabled = true;
     btnText.style.display = 'none';
     btnLoading.style.display = 'inline';
-    submitBtn.disabled = true;
     
     // Generate EOI number
     const eoiNumber = 'EOI-' + Date.now().toString().slice(-6);
     
-    // Prepare WhatsApp message
+    // Create WhatsApp message
     const whatsappMessage = `🏠 *New Lead - Jacob & Co. x M3M*
-    
+
 📋 *Lead Details:*
-• Name: ${leadData.name}
-• Email: ${leadData.email}
-• Phone: ${leadData.phone}
-• Nationality: ${leadData.nationality}
-• Interest: ${leadData.interest}
+• Name: ${name}
+• Email: ${email}
+• Phone: ${phone}
+• Nationality: ${nationality}
+• Interest: ${interest}
 • EOI Number: ${eoiNumber}
-• Source: Popup Lead Capture
 • Time: ${new Date().toLocaleString('en-IN')}
 
 🎯 *Action Required:*
-Please contact this lead immediately for priority booking!`;
+Please contact this lead immediately!`;
     
-    // Send WhatsApp notification
+    // Send WhatsApp
     const whatsappUrl = `https://wa.me/919760393545?text=${encodeURIComponent(whatsappMessage)}`;
-    
-    // Open WhatsApp in new tab
     window.open(whatsappUrl, '_blank');
     
-    // Send confirmation email to customer
-    const customerEmail = leadData.email;
-    const customerSubject = `Your EOI Confirmation - Jacob & Co. x M3M (${eoiNumber})`;
-    const customerBody = `Dear ${leadData.name},
-
-Thank you for your interest in Jacob & Co. x M3M luxury residences!
-
-📋 Your EOI Details:
-• EOI Number: ${eoiNumber}
-• Property Interest: ${leadData.interest}
-• Nationality: ${leadData.nationality}
-• Submission Time: ${new Date().toLocaleString('en-IN')}
-
-🎯 What's Next:
-1. Our team will contact you within 24 hours
-2. You'll receive exclusive floor plans
-3. Priority booking access for soft launch pricing
-4. Investment analysis report
-
-📞 Contact Us:
-Phone: +91 9760393545
-Email: kunwarsinghrawat@gmail.com
-
-Thank you for choosing Jacob & Co. x M3M!
-
-Best regards,
-Kunwar Singh Rawat
-Jacob & Co. x M3M Team`;
-
-    const customerEmailUrl = `mailto:${customerEmail}?subject=${encodeURIComponent(customerSubject)}&body=${encodeURIComponent(customerBody)}`;
-    
-    // Open customer email
-    window.open(customerEmailUrl, '_blank');
-    
     // Show success message
-    showNotification('✅ Request Accepted! Your EOI number is ' + eoiNumber + '. We will contact you within 24 hours!', 'success');
+    alert('✅ Request Submitted! Your EOI number is ' + eoiNumber + '. We will contact you soon!');
+    
+    // Close popup immediately
+    closePopup();
     
     // Reset form
     popupForm.reset();
     
-    // Reset button state
-    submitBtn.classList.remove('loading');
+    // Reset button
+    submitBtn.disabled = false;
     btnText.style.display = 'inline';
     btnLoading.style.display = 'none';
-    submitBtn.disabled = false;
-    
-    // Close popup after 3 seconds
-    setTimeout(() => {
-        closePopup();
-    }, 3000);
 }
 
 // Test function to manually trigger popup form (for debugging)
 function testPopupForm() {
     console.log('Testing popup form...');
-    handlePopupSubmission();
+    submitPopupForm();
 }
 
 // Make test function available globally for debugging
