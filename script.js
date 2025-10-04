@@ -602,17 +602,14 @@ document.addEventListener('keydown', function(e) {
 document.addEventListener('DOMContentLoaded', function() {
     const popupForm = document.getElementById('popupForm');
     if (popupForm) {
+        console.log('Popup form found and event listener added');
         popupForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('Popup form submitted');
             
             const submitBtn = this.querySelector('.popup-submit-btn');
             const btnText = submitBtn.querySelector('.btn-text');
             const btnLoading = submitBtn.querySelector('.btn-loading');
-            
-            // Show loading state
-            submitBtn.classList.add('loading');
-            btnText.style.display = 'none';
-            btnLoading.style.display = 'inline';
             
             // Get form data
             const formData = new FormData(this);
@@ -626,6 +623,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 source: 'Popup Lead Capture',
                 timestamp: new Date().toISOString()
             };
+            
+            console.log('Popup form data:', leadData);
+            
+            // Validate form
+            if (!leadData.name || !leadData.email || !leadData.phone || !leadData.nationality || !leadData.interest || !leadData.terms) {
+                console.log('Popup validation failed - missing fields');
+                showNotification('Please fill in all required fields and accept terms.', 'error');
+                return;
+            }
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(leadData.email)) {
+                showNotification('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            // Validate phone
+            const phoneRegex = /^[6-9]\d{9}$/;
+            if (!phoneRegex.test(leadData.phone.replace(/\D/g, ''))) {
+                showNotification('Please enter a valid 10-digit phone number.', 'error');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.classList.add('loading');
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
             
             // Generate EOI number
             const eoiNumber = 'EOI-' + Date.now().toString().slice(-6);
@@ -702,5 +727,35 @@ Jacob & Co. x M3M Team`;
                 closePopup();
             }, 3000);
         });
+    } else {
+        console.log('Popup form not found');
     }
 });
+
+// Alternative popup form handler (backup)
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('popup-submit-btn') || e.target.closest('.popup-submit-btn')) {
+        e.preventDefault();
+        console.log('Popup submit button clicked directly');
+        
+        const popupForm = document.getElementById('popupForm');
+        if (popupForm) {
+            popupForm.dispatchEvent(new Event('submit'));
+        }
+    }
+});
+
+// Test function to manually trigger popup form (for debugging)
+function testPopupForm() {
+    console.log('Testing popup form...');
+    const popupForm = document.getElementById('popupForm');
+    if (popupForm) {
+        console.log('Popup form found, triggering submit...');
+        popupForm.dispatchEvent(new Event('submit'));
+    } else {
+        console.log('Popup form not found');
+    }
+}
+
+// Make test function available globally for debugging
+window.testPopupForm = testPopupForm;
