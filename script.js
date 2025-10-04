@@ -146,6 +146,11 @@ Please contact this lead immediately for priority booking!`;
             // Send WhatsApp notification
             const whatsappUrl = `https://wa.me/91997024660?text=${encodeURIComponent(whatsappMessage)}`;
             
+            // Debug: Log the WhatsApp URL
+            console.log('WhatsApp URL:', whatsappUrl);
+            console.log('Phone number: 9997024660');
+            console.log('Full number: +91 9997024660');
+            
             // Open WhatsApp in new tab
             window.open(whatsappUrl, '_blank');
             
@@ -672,6 +677,11 @@ Please contact this lead immediately!`;
     
     // Send WhatsApp notification (open in new tab)
     const whatsappUrl = `https://wa.me/91997024660?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    // Debug: Log the WhatsApp URL
+    console.log('WhatsApp URL:', whatsappUrl);
+    console.log('Phone number: 9997024660');
+    console.log('Full number: +91 9997024660');
     
     // Open WhatsApp in new tab
     window.open(whatsappUrl, '_blank');
