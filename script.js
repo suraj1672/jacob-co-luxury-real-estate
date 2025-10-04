@@ -123,26 +123,81 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.textContent = 'Generating EOI...';
             submitBtn.disabled = true;
             
-            // Simulate EOI generation
-            setTimeout(() => {
-                // Generate EOI number
-                const eoiNumber = 'EOI' + Date.now().toString().slice(-6);
-                
-                // Show success message with EOI number
-                showNotification(`EOI Generated Successfully! Your EOI Number: ${eoiNumber}. Our team will contact you within 24 hours.`, 'success');
-                
-                // Reset form
-                this.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-                // Log EOI data (in real implementation, this would be sent to server)
-                console.log('EOI Generated:', {
-                    eoiNumber: eoiNumber,
-                    ...formObject,
-                    timestamp: new Date().toISOString()
-                });
-            }, 2000);
+            // Generate EOI number
+            const eoiNumber = 'EOI' + Date.now().toString().slice(-6);
+            
+            // Prepare WhatsApp message for main EOI form
+            const whatsappMessage = `🏠 *New EOI - Jacob & Co. x M3M*
+            
+📋 *Lead Details:*
+• Name: ${formObject.fullName}
+• Email: ${formObject.email}
+• Phone: ${formObject.phone}
+• Tower: ${formObject.tower}
+• Budget: ${formObject.budget || 'Not specified'}
+• Message: ${formObject.message || 'No additional message'}
+• EOI Number: ${eoiNumber}
+• Source: Main EOI Form
+• Time: ${new Date().toLocaleString('en-IN')}
+
+🎯 *Action Required:*
+Please contact this lead immediately for priority booking!`;
+            
+            // Send WhatsApp notification
+            const whatsappUrl = `https://wa.me/919760393545?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            // Open WhatsApp in new tab
+            window.open(whatsappUrl, '_blank');
+            
+            // Send confirmation email to customer
+            const customerEmail = formObject.email;
+            const customerSubject = `Your EOI Confirmation - Jacob & Co. x M3M (${eoiNumber})`;
+            const customerBody = `Dear ${formObject.fullName},
+
+Thank you for your interest in Jacob & Co. x M3M luxury residences!
+
+📋 Your EOI Details:
+• EOI Number: ${eoiNumber}
+• Tower Interest: ${formObject.tower}
+• Budget Range: ${formObject.budget || 'Not specified'}
+• Additional Message: ${formObject.message || 'No additional message'}
+• Submission Time: ${new Date().toLocaleString('en-IN')}
+
+🎯 What's Next:
+1. Our team will contact you within 24 hours
+2. You'll receive exclusive floor plans
+3. Priority booking access for soft launch pricing
+4. Investment analysis report
+
+📞 Contact Us:
+Phone: +91 9760393545
+Email: kunwarsinghrawat@gmail.com
+
+Thank you for choosing Jacob & Co. x M3M!
+
+Best regards,
+Kunwar Singh Rawat
+Jacob & Co. x M3M Team`;
+
+            const customerEmailUrl = `mailto:${customerEmail}?subject=${encodeURIComponent(customerSubject)}&body=${encodeURIComponent(customerBody)}`;
+            
+            // Open customer email
+            window.open(customerEmailUrl, '_blank');
+            
+            // Show success message with EOI number
+            showNotification(`EOI Generated Successfully! Your EOI Number: ${eoiNumber}. Our team will contact you within 24 hours.`, 'success');
+            
+            // Reset form
+            this.reset();
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+            // Log EOI data (in real implementation, this would be sent to server)
+            console.log('EOI Generated:', {
+                eoiNumber: eoiNumber,
+                ...formObject,
+                timestamp: new Date().toISOString()
+            });
         });
     }
 
@@ -572,30 +627,80 @@ document.addEventListener('DOMContentLoaded', function() {
                 timestamp: new Date().toISOString()
             };
             
-            // Simulate form submission (replace with actual API call)
+            // Generate EOI number
+            const eoiNumber = 'EOI-' + Date.now().toString().slice(-6);
+            
+            // Prepare WhatsApp message
+            const whatsappMessage = `🏠 *New Lead - Jacob & Co. x M3M*
+            
+📋 *Lead Details:*
+• Name: ${leadData.name}
+• Email: ${leadData.email}
+• Phone: ${leadData.phone}
+• Nationality: ${leadData.nationality}
+• Interest: ${leadData.interest}
+• EOI Number: ${eoiNumber}
+• Source: Popup Lead Capture
+• Time: ${new Date().toLocaleString('en-IN')}
+
+🎯 *Action Required:*
+Please contact this lead immediately for priority booking!`;
+            
+            // Send WhatsApp notification
+            const whatsappUrl = `https://wa.me/919760393545?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            // Open WhatsApp in new tab
+            window.open(whatsappUrl, '_blank');
+            
+            // Send confirmation email to customer
+            const customerEmail = leadData.email;
+            const customerSubject = `Your EOI Confirmation - Jacob & Co. x M3M (${eoiNumber})`;
+            const customerBody = `Dear ${leadData.name},
+
+Thank you for your interest in Jacob & Co. x M3M luxury residences!
+
+📋 Your EOI Details:
+• EOI Number: ${eoiNumber}
+• Property Interest: ${leadData.interest}
+• Nationality: ${leadData.nationality}
+• Submission Time: ${new Date().toLocaleString('en-IN')}
+
+🎯 What's Next:
+1. Our team will contact you within 24 hours
+2. You'll receive exclusive floor plans
+3. Priority booking access for soft launch pricing
+4. Investment analysis report
+
+📞 Contact Us:
+Phone: +91 9760393545
+Email: kunwarsinghrawat@gmail.com
+
+Thank you for choosing Jacob & Co. x M3M!
+
+Best regards,
+Kunwar Singh Rawat
+Jacob & Co. x M3M Team`;
+
+            const customerEmailUrl = `mailto:${customerEmail}?subject=${encodeURIComponent(customerSubject)}&body=${encodeURIComponent(customerBody)}`;
+            
+            // Open customer email
+            window.open(customerEmailUrl, '_blank');
+            
+            // Show success message
+            showNotification('🎉 Thank you! Your EOI number is ' + eoiNumber + '. We will contact you soon!', 'success');
+            
+            // Reset form
+            this.reset();
+            
+            // Reset button state
+            submitBtn.classList.remove('loading');
+            btnText.style.display = 'inline';
+            btnLoading.style.display = 'none';
+            
+            // Close popup after 3 seconds
             setTimeout(() => {
-                console.log('Popup Lead Captured:', leadData);
-                
-                // Generate EOI number
-                const eoiNumber = 'EOI-' + Date.now().toString().slice(-6);
-                
-                // Show success message
-                showNotification('🎉 Thank you! Your EOI number is ' + eoiNumber + '. We will contact you soon!', 'success');
-                
-                // Reset form
-                this.reset();
-                
-                // Reset button state
-                submitBtn.classList.remove('loading');
-                btnText.style.display = 'inline';
-                btnLoading.style.display = 'none';
-                
-                // Close popup after 2 seconds
-                setTimeout(() => {
-                    closePopup();
-                }, 2000);
-                
-            }, 1500);
+                closePopup();
+            }, 3000);
         });
     }
 });
