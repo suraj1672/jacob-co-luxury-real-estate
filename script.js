@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
 Please contact this lead immediately for priority booking!`;
             
             // Send WhatsApp notification
-            const whatsappUrl = `https://wa.me/919760393545?text=${encodeURIComponent(whatsappMessage)}`;
+            const whatsappUrl = `https://wa.me/91997024660?text=${encodeURIComponent(whatsappMessage)}`;
             
             // Open WhatsApp in new tab
             window.open(whatsappUrl, '_blank');
@@ -669,6 +669,20 @@ function submitPopupForm() {
 
 🎯 *Action Required:*
 Please contact this lead immediately!`;
+    
+    // Send WhatsApp notification (without redirecting customer)
+    const whatsappUrl = `https://wa.me/91997024660?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    // Create hidden iframe to send WhatsApp notification
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = whatsappUrl;
+    document.body.appendChild(iframe);
+    
+    // Remove iframe after 2 seconds
+    setTimeout(() => {
+        document.body.removeChild(iframe);
+    }, 2000);
     
     // Log lead data for your reference
     console.log('=== NEW LEAD CAPTURED ===');
