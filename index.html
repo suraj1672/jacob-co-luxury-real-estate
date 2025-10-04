@@ -551,6 +551,77 @@
         </div>
     </footer>
 
+    <!-- Lead Capture Popup -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-container">
+            <div class="popup-header">
+                <h3>🏠 Don't Miss Out on Your Dream Home!</h3>
+                <button class="popup-close" onclick="closePopup()">&times;</button>
+            </div>
+            <div class="popup-content">
+                <p class="popup-subtitle">Get exclusive access to Jacob & Co. x M3M luxury residences</p>
+                <p class="popup-urgency">🔥 Only 270 Units Available | Limited Time Offer</p>
+                
+                <form class="popup-form" id="popupForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" id="popupName" name="name" placeholder="Full Name *" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="popupEmail" name="email" placeholder="Email Address *" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="tel" id="popupPhone" name="phone" placeholder="Phone Number *" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="popupNationality" name="nationality" required>
+                                <option value="">Select Nationality *</option>
+                                <option value="Indian">Indian</option>
+                                <option value="NRI">NRI</option>
+                                <option value="Foreign National">Foreign National</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <select id="popupInterest" name="interest" required>
+                            <option value="">Select Your Interest *</option>
+                            <option value="3 BHK - 2,500 sq.ft">3 BHK - 2,500 sq.ft</option>
+                            <option value="4 BHK - 4,400 sq.ft">4 BHK - 4,400 sq.ft</option>
+                            <option value="5 BHK - 6,400 sq.ft">5 BHK - 6,400 sq.ft</option>
+                            <option value="Investment Only">Investment Only</option>
+                            <option value="Need More Information">Need More Information</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="popupTerms" name="terms" required>
+                            <span class="checkmark"></span>
+                            I agree to receive updates about Jacob & Co. x M3M project
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="popup-submit-btn">
+                        <span class="btn-text">Get Priority Access</span>
+                        <span class="btn-loading" style="display: none;">Processing...</span>
+                    </button>
+                </form>
+                
+                <div class="popup-benefits">
+                    <p>✅ Free Floor Plan PDF</p>
+                    <p>✅ Investment Analysis Report</p>
+                    <p>✅ Priority Booking Access</p>
+                    <p>✅ Exclusive Soft Launch Pricing</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

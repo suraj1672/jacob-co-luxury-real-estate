@@ -497,3 +497,105 @@ revealStyles.textContent = `
     }
 `;
 document.head.appendChild(revealStyles);
+
+// Lead Capture Popup Functions
+function showPopup() {
+    const popup = document.getElementById('popupOverlay');
+    if (popup) {
+        popup.classList.add('show');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+}
+
+function closePopup() {
+    const popup = document.getElementById('popupOverlay');
+    if (popup) {
+        popup.classList.remove('show');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+}
+
+// Show popup after 3 seconds of page load
+setTimeout(() => {
+    // Check if user has already seen the popup in this session
+    if (!sessionStorage.getItem('popupShown')) {
+        showPopup();
+        sessionStorage.setItem('popupShown', 'true');
+    }
+}, 3000);
+
+// Close popup when clicking outside
+document.addEventListener('DOMContentLoaded', function() {
+    const popupOverlay = document.getElementById('popupOverlay');
+    if (popupOverlay) {
+        popupOverlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+    }
+});
+
+// Close popup with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closePopup();
+    }
+});
+
+// Popup form submission
+document.addEventListener('DOMContentLoaded', function() {
+    const popupForm = document.getElementById('popupForm');
+    if (popupForm) {
+        popupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.popup-submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+            
+            // Show loading state
+            submitBtn.classList.add('loading');
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
+            
+            // Get form data
+            const formData = new FormData(this);
+            const leadData = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                nationality: formData.get('nationality'),
+                interest: formData.get('interest'),
+                terms: formData.get('terms'),
+                source: 'Popup Lead Capture',
+                timestamp: new Date().toISOString()
+            };
+            
+            // Simulate form submission (replace with actual API call)
+            setTimeout(() => {
+                console.log('Popup Lead Captured:', leadData);
+                
+                // Generate EOI number
+                const eoiNumber = 'EOI-' + Date.now().toString().slice(-6);
+                
+                // Show success message
+                showNotification('🎉 Thank you! Your EOI number is ' + eoiNumber + '. We will contact you soon!', 'success');
+                
+                // Reset form
+                this.reset();
+                
+                // Reset button state
+                submitBtn.classList.remove('loading');
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                
+                // Close popup after 2 seconds
+                setTimeout(() => {
+                    closePopup();
+                }, 2000);
+                
+            }, 1500);
+        });
+    }
+});
