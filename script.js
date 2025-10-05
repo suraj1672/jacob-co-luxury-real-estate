@@ -381,7 +381,9 @@ let currentImageIndex = 0;
 // Floor Plan Modal Functionality
 let currentZoom = 1;
 const floorPlanImages = {
-    '3bhk': 'assets/images/optimized/property_image_17.png',
+    '3bhk': 'assets/experion/experion2.jpeg',
+    '3bhk-utility': 'assets/experion/experion3.jpeg',
+    '4bhk-utility': 'assets/experion/experion4.png',
     '4bhk': 'assets/images/optimized/property_image_18.png',
     '5bhk': 'assets/images/optimized/property_image_19.png'
 };
