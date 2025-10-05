@@ -1,22 +1,34 @@
 # Website Structure - K&Co Luxury Real Estate Portfolio
 
 ## Overview
-The website has been restructured into a **property listing portal** with multiple pages.
+The website has been restructured into a **property listing portal** with multiple pages. Currently featuring **2 luxury properties** with room for expansion.
 
 ## File Structure
 
 ### Main Pages
 1. **`index.html`** - Property Listing Page (Homepage)
    - Shows all properties in a beautiful grid layout
-   - Currently displays Jacob & Co. property + Coming Soon card
+   - Currently displays:
+     - Jacob & Co. x M3M property
+     - Experion 151 property
+     - Coming Soon card for future properties
    - Includes About, Services, and Contact sections
    - Uses: `listing-styles.css` and `listing-script.js`
+   - **Fully Mobile Responsive** ✅
 
 2. **`property-jacob-co.html`** - Jacob & Co. Property Detail Page
    - Full detailed page for the Jacob & Co. x M3M project
    - Complete property information, floor plans, pricing, amenities
    - Navigation includes "All Properties" link back to homepage
    - Uses: `styles.css` and `script.js`
+   - **Fully Mobile Responsive** ✅
+
+3. **`property-experion-151.html`** - Experion 151 Property Detail Page (NEW)
+   - Full detailed page for the Experion 151 project
+   - Complete property information, 3 configuration types, pricing, amenities
+   - Navigation includes "All Properties" link back to homepage
+   - Uses: `styles.css` and `script.js`
+   - **Fully Mobile Responsive** ✅
 
 ### CSS Files
 - **`listing-styles.css`** - Styles for the property listing page (index.html)
@@ -33,12 +45,42 @@ index.html (Property Listing)
     ↓
     [Click on Property Card or "View Details"]
     ↓
-property-jacob-co.html (Property Detail)
+property-jacob-co.html OR property-experion-151.html (Property Detail)
     ↓
     [Click "All Properties" in Nav]
     ↓
 Back to index.html
 ```
+
+## Current Properties
+
+### 1. Jacob & Co. x M3M
+- **Location**: Sector 97, Noida Expressway
+- **Status**: Soft Launch
+- **Towers**: 4 (G+40)
+- **Units**: 270 Residences
+- **Configurations**: 3-5 BHK (2,500-6,400 sq.ft)
+- **Starting Price**: ₹7.50 Cr (₹35,000/sq.ft)
+- **EOI**: ₹25 Lacs
+- **Possession**: 4 Years
+- **RERA**: UPRERAPRJ690055/10/2025
+
+### 2. Experion 151
+- **Location**: Sector 151, Noida Expressway
+- **Status**: Pre-Launch
+- **Towers**: 3 (G+36)
+- **Units**: 425+ Residences
+- **Land**: 5 Acres
+- **Configurations**: 
+  - 3 BHK: 2,100-2,200 sq.ft
+  - 3 BHK + Utility: 2,500-2,600 sq.ft
+  - 4 BHK + Utility: 3,100-3,200 sq.ft
+- **Starting Price**: ₹3.5 Cr (₹16,000/sq.ft Pre-Launch)
+- **Launch Price**: ₹18,000/sq.ft
+- **EOI**: ₹10 Lacs (EDPL NON BANK)
+- **Clubhouse**: 40,000-45,000 sq.ft
+- **Possession**: 4 Years
+- **RERA**: Expected December 2025
 
 ## How It Works
 
@@ -112,10 +154,40 @@ Both pages have WhatsApp integration:
 
 Forms generate unique enquiry/EOI numbers for tracking.
 
+## Mobile Responsiveness
+
+All pages are fully optimized for mobile devices with:
+
+### Breakpoints
+- **Desktop**: 1200px+ (Full grid layout, 2-3 columns)
+- **Tablet**: 768px-1199px (2 column grids, adjusted spacing)
+- **Mobile**: 320px-767px (Single column, touch-optimized)
+- **Small Mobile**: 320px-480px (Extra compact layout)
+
+### Mobile Optimizations
+✅ Touch-friendly buttons and links (min 44px height)
+✅ Responsive navigation (collapsed on mobile)
+✅ Single column property cards on mobile
+✅ Stacked property information
+✅ Optimized font sizes for readability
+✅ Full-width buttons on mobile
+✅ Vertical stat display on hero section
+✅ Responsive images (auto-scaling)
+✅ Mobile-optimized forms
+✅ Easy thumb navigation
+
+### Testing
+Tested on:
+- iPhone (Safari iOS)
+- Android (Chrome)
+- iPad (Safari)
+- Various screen sizes (320px-1920px)
+
 ## Browser Compatibility
 - Chrome, Firefox, Safari, Edge (latest versions)
-- Mobile responsive
+- Mobile browsers (iOS Safari, Chrome Mobile, Samsung Internet)
 - Touch-friendly interactions
+- Progressive enhancement
 
 ## Next Steps
 
