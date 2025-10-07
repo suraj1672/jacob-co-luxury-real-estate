@@ -168,6 +168,27 @@ document.addEventListener('DOMContentLoaded', function () {
             saveToFirestore('enquiries', enquiryData)
                 .then(result => {
                     if (result.success) {
+                        // Track form submission in Google Analytics
+                        if (typeof gtag !== 'undefined') {
+                            gtag('event', 'form_submission', {
+                                'form_name': 'homepage_contact_form',
+                                'form_location': 'homepage',
+                                'enquiry_number': enquiryNumber,
+                                'property_interest': formObject.interest,
+                                'budget_range': formObject.budget,
+                                'event_category': 'conversion',
+                                'event_label': 'Contact Form Submitted',
+                                'value': 1
+                            });
+
+                            // Track as conversion
+                            gtag('event', 'conversion', {
+                                'send_to': 'G-C595NDQMDS',
+                                'event_category': 'lead_generation',
+                                'event_label': 'Homepage Lead Generated'
+                            });
+                        }
+
                         // Show success message
                         showNotification(`Enquiry Submitted Successfully! Your enquiry number: ${enquiryNumber}. We'll contact you within 24 hours.`, 'success');
 

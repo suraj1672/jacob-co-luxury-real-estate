@@ -10,6 +10,29 @@
     <meta name="keywords"
         content="luxury real estate, property portfolio, luxury apartments, premium living, real estate investment">
     <meta name="author" content="Kunwar Singh Rawat">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C595NDQMDS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C595NDQMDS', {
+            'page_title': 'K&Co Properties - Homepage',
+            'send_page_view': true
+        });
+
+        // Track form view on page load
+        window.addEventListener('load', function () {
+            gtag('event', 'form_view', {
+                'form_name': 'homepage_contact_form',
+                'form_location': 'homepage',
+                'event_category': 'engagement',
+                'event_label': 'Contact Form Viewed'
+            });
+        });
+    </script>
+
     <link rel="stylesheet" href="listing-styles.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"

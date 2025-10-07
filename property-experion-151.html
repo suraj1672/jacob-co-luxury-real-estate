@@ -10,6 +10,30 @@
     <meta name="keywords"
         content="Experion 151, luxury real estate, Noida, luxury apartments, premium living, ultra-luxury residences">
     <meta name="author" content="Kunwar Singh Rawat">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C595NDQMDS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-C595NDQMDS', {
+            'page_title': 'Experion 151 - Property Details',
+            'send_page_view': true
+        });
+
+        // Track form view on page load
+        window.addEventListener('load', function () {
+            gtag('event', 'form_view', {
+                'form_name': 'experion_151_eoi_form',
+                'form_location': 'experion_151_property_page',
+                'property_name': 'Experion 151',
+                'event_category': 'engagement',
+                'event_label': 'EOI Form Viewed'
+            });
+        });
+    </script>
+
     <link rel="stylesheet" href="styles.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"

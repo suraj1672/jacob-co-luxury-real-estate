@@ -144,6 +144,28 @@ document.addEventListener('DOMContentLoaded', function () {
             saveToFirestore('eoi-submissions', eoiData)
                 .then(result => {
                     if (result.success) {
+                        // Track EOI submission in Google Analytics
+                        if (typeof gtag !== 'undefined') {
+                            gtag('event', 'form_submission', {
+                                'form_name': 'property_eoi_form',
+                                'form_location': 'property_detail_page',
+                                'property_name': propertyName,
+                                'eoi_number': eoiNumber,
+                                'tower_type': formObject.tower || '',
+                                'budget_range': formObject.budget || '',
+                                'event_category': 'conversion',
+                                'event_label': 'EOI Form Submitted - ' + propertyName,
+                                'value': 1
+                            });
+
+                            // Track as conversion
+                            gtag('event', 'conversion', {
+                                'send_to': 'G-C595NDQMDS',
+                                'event_category': 'lead_generation',
+                                'event_label': 'EOI Generated - ' + propertyName
+                            });
+                        }
+
                         // Show success message
                         showNotification(`EOI Generated Successfully! Your EOI Number: ${eoiNumber}. Our team will contact you within 24 hours.`, 'success');
 
@@ -583,6 +605,28 @@ function submitPopupForm() {
     saveToFirestore('eoi-submissions', popupEoiData)
         .then(result => {
             if (result.success) {
+                // Track popup EOI submission in Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'form_submission', {
+                        'form_name': 'priority_access_popup',
+                        'form_location': 'popup_modal',
+                        'property_name': propertyName,
+                        'eoi_number': eoiNumber,
+                        'nationality': nationality,
+                        'interest': interest,
+                        'event_category': 'conversion',
+                        'event_label': 'Priority Popup EOI - ' + propertyName,
+                        'value': 1
+                    });
+
+                    // Track as high-value conversion
+                    gtag('event', 'conversion', {
+                        'send_to': 'G-C595NDQMDS',
+                        'event_category': 'lead_generation',
+                        'event_label': 'Priority Lead Generated - ' + propertyName
+                    });
+                }
+
                 // Show success message
                 alert('✅ Request Submitted! Your EOI number is ' + eoiNumber + '. We will contact you soon!');
 
