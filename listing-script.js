@@ -144,80 +144,53 @@ document.addEventListener('DOMContentLoaded', function () {
             // Show loading state
             const submitBtn = this.querySelector('.btn-submit');
             const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'SENDING...';
+            submitBtn.textContent = 'SUBMITTING...';
             submitBtn.disabled = true;
 
             // Generate enquiry number
-            const enquiryNumber = 'ENQ' + Date.now().toString().slice(-6);
+            const enquiryNumber = generateEnquiryNumber('ENQ');
 
-            // Prepare WhatsApp message
-            const whatsappMessage = `🏠 *New Enquiry - K&Co Properties*
-
-📋 *Lead Details:*
-• Name: ${formObject.fullName}
-• Email: ${formObject.email}
-• Phone: ${formObject.phone}
-• Interest: ${formObject.interest}
-• Budget: ${formObject.budget}
-• Message: ${formObject.message || 'No additional message'}
-• Enquiry Number: ${enquiryNumber}
-• Source: Portfolio Website
-• Time: ${new Date().toLocaleString('en-IN')}
-
-🎯 *Action Required:*
-Please contact this lead immediately!`;
-
-            // Send WhatsApp notification
-            const whatsappUrl = `https://wa.me/919760393545?text=${encodeURIComponent(whatsappMessage)}`;
-            window.open(whatsappUrl, '_blank');
-
-            // Send confirmation email to customer
-            const customerEmail = formObject.email;
-            const customerSubject = `Your Enquiry Confirmation - K&Co Properties (${enquiryNumber})`;
-            const customerBody = `Dear ${formObject.fullName},
-
-Thank you for your interest in our luxury properties portfolio!
-
-📋 Your Enquiry Details:
-• Enquiry Number: ${enquiryNumber}
-• Interest: ${formObject.interest}
-• Budget Range: ${formObject.budget}
-• Message: ${formObject.message || 'No additional message'}
-• Submission Time: ${new Date().toLocaleString('en-IN')}
-
-🎯 What's Next:
-1. Our team will contact you within 24 hours
-2. You'll receive exclusive property details
-3. Schedule a site visit at your convenience
-4. Investment analysis and guidance
-
-📞 Contact Us:
-Phone: +91 9760393545
-Email: 005krawat@gmail.com
-
-Thank you for choosing K&Co Properties!
-
-Best regards,
-Kunwar Singh Rawat
-K&Co Real Estate Advisory`;
-
-            const customerEmailUrl = `mailto:${customerEmail}?subject=${encodeURIComponent(customerSubject)}&body=${encodeURIComponent(customerBody)}`;
-            window.open(customerEmailUrl, '_blank');
-
-            // Show success message
-            showNotification(`Enquiry Sent Successfully! Your enquiry number: ${enquiryNumber}. We'll contact you within 24 hours.`, 'success');
-
-            // Reset form
-            this.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-
-            // Log enquiry data
-            console.log('Enquiry Generated:', {
+            // Prepare data for Firebase
+            const enquiryData = {
                 enquiryNumber: enquiryNumber,
-                ...formObject,
-                timestamp: new Date().toISOString()
-            });
+                fullName: formObject.fullName,
+                email: formObject.email,
+                phone: formObject.phone,
+                interest: formObject.interest,
+                budget: formObject.budget,
+                message: formObject.message || '',
+                source: 'Portfolio Website - Homepage',
+                status: 'new',
+                submittedAt: new Date().toISOString()
+            };
+
+            // Save to Firebase Firestore
+            saveToFirestore('enquiries', enquiryData)
+                .then(result => {
+                    if (result.success) {
+                        // Show success message
+                        showNotification(`Enquiry Submitted Successfully! Your enquiry number: ${enquiryNumber}. We'll contact you within 24 hours.`, 'success');
+
+                        // Reset form
+                        this.reset();
+
+                        console.log('Enquiry saved to Firebase:', result.id);
+                    } else {
+                        // Show error message
+                        showNotification('Failed to submit enquiry. Please try again or contact us directly.', 'error');
+                        console.error('Firebase error:', result.error);
+                    }
+                })
+                .catch(error => {
+                    // Show error message
+                    showNotification('An error occurred. Please try again.', 'error');
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
         });
     }
 

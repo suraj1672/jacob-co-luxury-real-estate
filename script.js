@@ -119,85 +119,54 @@ document.addEventListener('DOMContentLoaded', function () {
             submitBtn.disabled = true;
 
             // Generate EOI number
-            const eoiNumber = 'EOI' + Date.now().toString().slice(-6);
+            const eoiNumber = generateEnquiryNumber('EOI');
 
-            // Prepare WhatsApp message for main EOI form
-            const whatsappMessage = `🏠 *New EOI - Jacob & Co. x M3M*
-            
-📋 *Lead Details:*
-• Name: ${formObject.fullName}
-• Email: ${formObject.email}
-• Phone: ${formObject.phone}
-• Tower: ${formObject.tower}
-• Budget: ${formObject.budget || 'Not specified'}
-• Message: ${formObject.message || 'No additional message'}
-• EOI Number: ${eoiNumber}
-• Source: Main EOI Form
-• Time: ${new Date().toLocaleString('en-IN')}
+            // Get property name from URL or default
+            const propertyName = document.title.includes('Jacob') ? 'Jacob & Co. x M3M' :
+                document.title.includes('Experion') ? 'Experion 151' : 'Property';
 
-🎯 *Action Required:*
-Please contact this lead immediately for priority booking!`;
-
-            // Send WhatsApp notification - Fixed number format
-            const whatsappUrl = `https://wa.me/91997024660?text=${encodeURIComponent(whatsappMessage)}`;
-
-            // Debug: Log the WhatsApp URL
-            console.log('WhatsApp URL:', whatsappUrl);
-            console.log('Phone number: 9997024660');
-            console.log('Full number: +91 9997024660');
-
-            // Open WhatsApp in new tab
-            window.open(whatsappUrl, '_blank');
-
-            // Send confirmation email to customer
-            const customerEmail = formObject.email;
-            const customerSubject = `Your EOI Confirmation - Jacob & Co. x M3M (${eoiNumber})`;
-            const customerBody = `Dear ${formObject.fullName},
-
-Thank you for your interest in Jacob & Co. x M3M luxury residences!
-
-📋 Your EOI Details:
-• EOI Number: ${eoiNumber}
-• Tower Interest: ${formObject.tower}
-• Budget Range: ${formObject.budget || 'Not specified'}
-• Additional Message: ${formObject.message || 'No additional message'}
-• Submission Time: ${new Date().toLocaleString('en-IN')}
-
-🎯 What's Next:
-1. Our team will contact you within 24 hours
-2. You'll receive exclusive floor plans
-3. Priority booking access for soft launch pricing
-4. Investment analysis report
-
-📞 Contact Us:
-Phone: +91 9760393545
-Email: kunwarsinghrawat@gmail.com
-
-Thank you for choosing Jacob & Co. x M3M!
-
-Best regards,
-Kunwar Singh Rawat
-Jacob & Co. x M3M Team`;
-
-            const customerEmailUrl = `mailto:${customerEmail}?subject=${encodeURIComponent(customerSubject)}&body=${encodeURIComponent(customerBody)}`;
-
-            // Open customer email
-            window.open(customerEmailUrl, '_blank');
-
-            // Show success message with EOI number
-            showNotification(`EOI Generated Successfully! Your EOI Number: ${eoiNumber}. Our team will contact you within 24 hours.`, 'success');
-
-            // Reset form
-            this.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-
-            // Log EOI data (in real implementation, this would be sent to server)
-            console.log('EOI Generated:', {
+            // Prepare data for Firebase
+            const eoiData = {
                 eoiNumber: eoiNumber,
-                ...formObject,
-                timestamp: new Date().toISOString()
-            });
+                fullName: formObject.fullName,
+                email: formObject.email,
+                phone: formObject.phone,
+                tower: formObject.tower || '',
+                budget: formObject.budget || '',
+                message: formObject.message || '',
+                property: propertyName,
+                source: 'Main EOI Form',
+                status: 'new',
+                submittedAt: new Date().toISOString()
+            };
+
+            // Save to Firebase Firestore
+            saveToFirestore('eoi-submissions', eoiData)
+                .then(result => {
+                    if (result.success) {
+                        // Show success message
+                        showNotification(`EOI Generated Successfully! Your EOI Number: ${eoiNumber}. Our team will contact you within 24 hours.`, 'success');
+
+                        // Reset form
+                        this.reset();
+
+                        console.log('EOI saved to Firebase:', result.id);
+                    } else {
+                        // Show error message
+                        showNotification('Failed to submit EOI. Please try again or contact us directly.', 'error');
+                        console.error('Firebase error:', result.error);
+                    }
+                })
+                .catch(error => {
+                    // Show error message
+                    showNotification('An error occurred. Please try again.', 'error');
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
         });
     }
 
@@ -590,53 +559,57 @@ function submitPopupForm() {
     btnLoading.style.display = 'inline';
 
     // Generate EOI number
-    const eoiNumber = 'EOI-' + Date.now().toString().slice(-6);
+    const eoiNumber = generateEnquiryNumber('EOI');
 
-    // Create WhatsApp message
-    const whatsappMessage = `🏠 *New Lead - Jacob & Co. x M3M*
+    // Get property name from URL or default
+    const propertyName = document.title.includes('Jacob') ? 'Jacob & Co. x M3M' :
+        document.title.includes('Experion') ? 'Experion 151' : 'Property';
 
-📋 *Lead Details:*
-• Name: ${name}
-• Email: ${email}
-• Phone: ${phone}
-• Nationality: ${nationality}
-• Interest: ${interest}
-• EOI Number: ${eoiNumber}
-• Time: ${new Date().toLocaleString('en-IN')}
+    // Prepare data for Firebase
+    const popupEoiData = {
+        eoiNumber: eoiNumber,
+        fullName: name,
+        email: email,
+        phone: phone,
+        nationality: nationality,
+        interest: interest,
+        property: propertyName,
+        source: 'Priority Access Popup',
+        status: 'new',
+        submittedAt: new Date().toISOString()
+    };
 
-🎯 *Action Required:*
-Please contact this lead immediately!`;
+    // Save to Firebase Firestore
+    saveToFirestore('eoi-submissions', popupEoiData)
+        .then(result => {
+            if (result.success) {
+                // Show success message
+                alert('✅ Request Submitted! Your EOI number is ' + eoiNumber + '. We will contact you soon!');
 
-    // Send WhatsApp notification (open in new tab) - Fixed number format
-    const whatsappUrl = `https://wa.me/91997024660?text=${encodeURIComponent(whatsappMessage)}`;
+                // Close popup
+                closePopup();
 
-    // Debug: Log the WhatsApp URL
-    console.log('WhatsApp URL:', whatsappUrl);
-    console.log('Phone number: 9997024660');
-    console.log('Full number: +91 9997024660');
+                // Reset form
+                popupForm.reset();
 
-    // Open WhatsApp in new tab
-    window.open(whatsappUrl, '_blank');
-
-    // Log lead data for your reference
-    console.log('=== NEW LEAD CAPTURED ===');
-    console.log('Lead Details:', { name, email, phone, nationality, interest, eoiNumber });
-    console.log('WhatsApp Message:', whatsappMessage);
-    console.log('========================');
-
-    // Show success message
-    alert('✅ Request Submitted! Your EOI number is ' + eoiNumber + '. We will contact you soon!');
-
-    // Close popup immediately
-    closePopup();
-
-    // Reset form
-    popupForm.reset();
-
-    // Reset button
-    submitBtn.disabled = false;
-    btnText.style.display = 'inline';
-    btnLoading.style.display = 'none';
+                console.log('Popup EOI saved to Firebase:', result.id);
+            } else {
+                // Show error message
+                alert('❌ Failed to submit. Please try again or contact us directly.');
+                console.error('Firebase error:', result.error);
+            }
+        })
+        .catch(error => {
+            // Show error message
+            alert('❌ An error occurred. Please try again.');
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            // Reset button state
+            submitBtn.disabled = false;
+            btnText.style.display = 'inline';
+            btnLoading.style.display = 'none';
+        });
 }
 
 // Test function to manually trigger popup form (for debugging)
