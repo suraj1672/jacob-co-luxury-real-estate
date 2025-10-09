@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Show loading state
-            const submitBtn = this.querySelector('.btn-eoi');
+            const submitBtn = this.querySelector('.btn-submit');
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Generating EOI...';
             submitBtn.disabled = true;
@@ -287,6 +287,9 @@ function showNotification(message, type = 'info') {
     // Remove existing notifications
     const existingNotifications = document.querySelectorAll('.notification');
     existingNotifications.forEach(notification => notification.remove());
+
+    // Determine icon based on type
+    const iconClass = type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle';
 
     // Create notification element
     const notification = document.createElement('div');
